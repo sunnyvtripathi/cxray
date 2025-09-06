@@ -1,28 +1,39 @@
+'use client';
+import { useState } from 'react';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
+
 export default function Home() {
+  const [q, setQ] = useState('');
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!q.trim()) return;
+    console.log('submit:', q);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8">
-      <h1 className="text-3xl font-bold mb-6">cxray</h1>
+    <main className={`${inter.className} min-h-screen w-full flex flex-col items-center pt-16 px-4`}>
+      {/* cxray header */}
+      <h2 className="text-lg text-gray-500 mb-10">cxray</h2>
 
-      <div className="w-full max-w-2xl space-y-4">
-        {/* Input box */}
-        <textarea
-          placeholder="Ask cxray a question..."
-          className="w-full p-4 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          rows={4}
-        />
+      {/* Heading */}
+      <h1 className="text-3xl md:text-4xl font-normal text-gray-900 mb-12 text-center">
+        What can I help you with today?
+      </h1>
 
-        {/* Run button */}
-        <button
-          className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-        >
-          Run cxray
-        </button>
-
-        {/* Results area */}
-        <div className="mt-6 p-4 border rounded-lg min-h-[120px]">
-          <p className="text-gray-500">Results will appear here...</p>
+      {/* Search bar */}
+      <form onSubmit={onSubmit} className="w-full max-w-3xl">
+        <div className="flex items-center w-full rounded-full border border-gray-200 bg-white shadow-sm px-6 py-4">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Ask anything"
+            className="flex-1 bg-transparent outline-none text-[17px] placeholder:text-gray-400"
+          />
         </div>
-      </div>
+      </form>
     </main>
-  )
+  );
 }
